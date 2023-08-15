@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const HomePage = ({ children }) => {
+const Home = ({ children }) => {
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -32,4 +32,4 @@ const HomePage = ({ children }) => {
   );
 };
 
-export default HomePage;
+export default Home;
