@@ -1,7 +1,7 @@
 import React from "react";
 const Certifications = () => {
   return (
-    <div className="card bg-slate-700 p-6">
+    <div className="card bg-slate-800 p-6">
       <div className="grid grid-cols-1">
         <div className="flex justify-between items-center w-full">
           <h2 className="card-title text-2xl">Certifications</h2>

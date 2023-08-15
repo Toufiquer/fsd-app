@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Home = ({ children }) => {
+const DashboardLayout = ({ children }) => {
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -35,4 +35,4 @@ const Home = ({ children }) => {
   );
 };
 
-export default Home;
+export default DashboardLayout;

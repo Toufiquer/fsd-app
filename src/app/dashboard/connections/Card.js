@@ -24,7 +24,7 @@ const Card = () => {
           <button type="button" className="btn btn-sm mt-4 bg-slate-600">
             Connect
           </button>
-          <button type="button" className="btn btn-sm mt-4 bg-slate-700">
+          <button type="button" className="btn btn-sm mt-4 bg-slate-800">
             Remove Connection
           </button>
         </div>

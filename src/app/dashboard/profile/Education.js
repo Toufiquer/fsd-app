@@ -4,7 +4,7 @@ import EducationCard from "./EducationCard";
 
 const Education = () => {
   return (
-    <div className="card w-full bg-slate-700 text-primary-content">
+    <div className="card w-full bg-slate-800 text-primary-content">
       <div className="card-body">
         {/* Education */}
         <div className="my-2">
