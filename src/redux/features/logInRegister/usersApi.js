@@ -115,7 +115,7 @@ export const logInRegistersApi = apiSlice.injectEndpoints({
     // for login
     addLogIn: builder.mutation({
       query: (data) => ({
-        url: `/logIn`,
+        url: `/register/logIn`,
         method: "POST",
         body: data,
       }),

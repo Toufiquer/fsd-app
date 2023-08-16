@@ -1,9 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import { useRegisterPostMutation } from "@/redux/features/logInRegister/usersApi";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import swal from "sweetalert";
 const LogIn = () => {
   const [inputType, setInputType] = useState("password");
+  const [error, setError] = useState({ isError: false, message: "" });
+  const [registerPost, { isError, error: errorR, isLoading, data }] =
+    useRegisterPostMutation();
+  useEffect(() => {
+    if (!isLoading && isError) {
+      setError({ isError: true, message: errorR?.data?.message });
+    }
+  }, [isLoading, isError]);
+
+  const router = useRouter();
   const toggleType = () => {
     if (inputType === "password") {
       setInputType("text");
@@ -16,8 +29,22 @@ const LogIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  useEffect(() => {
+    // Save token to Local Storage
+    if (data?.token) {
+      localStorage.setItem("token", data?.token);
+      swal({
+        title: "Log In Confirm",
+        text: "Thanks for your Log In",
+        icon: "success",
+      });
+      // locate to dashboard
+      router.push("/dashboard");
+    }
+  }, [data?.token]);
   const onSubmit = (data) => {
-    console.log(data, " => Line No: 5");
+    setError({ isError: false, message: "" });
+    registerPost({ email: data.email, password: data.password });
   };
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
@@ -80,6 +107,7 @@ const LogIn = () => {
         </div>
         {/* Submit */}
         <button
+          disabled={isLoading}
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
