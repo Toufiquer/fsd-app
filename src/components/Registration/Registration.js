@@ -1,8 +1,10 @@
 "use client";
 import { useRegisterPostMutation } from "@/redux/features/logInRegister/usersApi";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import swal from "sweetalert";
 const Registration = () => {
   const [inputType, setInputType] = useState("password");
   const [error, setError] = useState({ isError: false, message: "" });
@@ -13,6 +15,8 @@ const Registration = () => {
       setError({ isError: true, message: errorR?.data?.message });
     }
   }, [isLoading, isError]);
+
+  const router = useRouter();
   const toggleType = () => {
     if (inputType === "password") {
       setInputType("text");
@@ -25,17 +29,25 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  // Save token to Local Storage
-  if (data?.token) {
-    localStorage.setItem("token", data?.token);
-  }
+  useEffect(() => {
+    // Save token to Local Storage
+    if (data?.token) {
+      localStorage.setItem("token", data?.token);
+      swal({
+        title: "Registration Confirm",
+        text: "Thanks for your registration",
+        icon: "success",
+      });
+      // locate to dashboard
+      router.push("/dashboard");
+    }
+  }, [data?.token]);
   const onSubmit = (data) => {
     if (data.password !== data.conPassword) {
       setError({ isError: true, message: "Password doesn't match" });
     } else {
       setError({ isError: false, message: "" });
       registerPost({ email: data.email, password: data.password });
-      console.log(data, " => Line No: 5");
     }
   };
   return (
