@@ -3,7 +3,7 @@
 // import { apiSlice } from "../api/apiSlice";
 
 import { apiSlice } from "../api/apiSlice";
-
+const baseUrl = process.env.VITE_APP_API_URL_LOCAL;
 export const logInRegistersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // endpoints here
@@ -86,9 +86,9 @@ export const logInRegistersApi = apiSlice.injectEndpoints({
       },
     }),
     // for registration
-    addLogInRegister: builder.mutation({
+    registerPost: builder.mutation({
       query: (data) => ({
-        url: `/logInRegisters`,
+        url: "/register",
         method: "POST",
         body: data,
       }),
@@ -115,7 +115,7 @@ export const logInRegistersApi = apiSlice.injectEndpoints({
     // for login
     addLogIn: builder.mutation({
       query: (data) => ({
-        url: `/logInRegistersLogIn`,
+        url: `/logIn`,
         method: "POST",
         body: data,
       }),
@@ -146,6 +146,6 @@ export const {
   useGetLogInRegisterQuery,
   useUpdateLogInRegisterMutation,
   useDeleteLogInRegisterMutation,
-  useAddLogInRegisterMutation,
+  useRegisterPostMutation,
   useAddLogInMutation,
 } = logInRegistersApi;
